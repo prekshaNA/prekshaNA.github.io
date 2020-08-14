@@ -11,7 +11,6 @@ $(document).ready(function(){
   $("#stop").click(function() {
   	console.log("hi");
   for (const property in obj) {
-  	$("#message").val($('#message').val()+'\n' + `${property}, ${obj[property]}`);
     console.log(`${property}, ${obj[property]}`);
 }    clearInterval(add);
    });
@@ -23,19 +22,23 @@ $(document).ready(function(){
 <div id="div1"></div>
 <button id='button1'>Start</button>
 <button id='stop'>End</button>
- <textarea id="message" rows="10" cols="30"></textarea>
+<textarea id="message" rows="10" cols="30"></textarea>
 <script>
 function myFunction() {
   add = setInterval(function(){ 
+   	var x = 0;
     $.ajax({
       url: 'https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js',
       cache: false, 
       method: 'GET',
       start_time: new Date().getTime(),
       complete: function(data) {
-        latency = new Date().getTime() - this.start_time
-      	obj[this.start_time] = latency
-        console.log('hi')
+        latency = new Date().getTime() - this.start_time;
+      	obj[this.start_time] = latency;
+        console.log('hi');
+        $("#message").val($('#message').val()+'\n' + `${x}, ${this.start_time}, ${latency}`);
+        x++;
+
     }
 });
    }, 1000);
